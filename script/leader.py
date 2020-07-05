@@ -9,7 +9,7 @@ from ros_mqtt_bridge import  Ros_mqtt_bridge
 
 def main(args):
     #----- Init node ------# 
-    rospy.init_node('ros_mqtt_bridge', anonymous=False)
+    rospy.init_node('ros_mqtt_bridge_leader', anonymous=False)
     # init ros_mqtt_bridge
     ros_mqtt_bridge = Ros_mqtt_bridge(client_id="mqtt_leader", broker_ip="10.0.0.1", port=1883, keepalive=10, clean_session=True)
 
