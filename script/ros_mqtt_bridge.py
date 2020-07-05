@@ -16,7 +16,8 @@ class Ros_mqtt_bridge():
         self.tfBuffer = tf2_ros.Buffer()
         self.listener = tf2_ros.TransformListener(self.tfBuffer)
         self.tfBroadcast = tf2_ros.TransformBroadcaster()
-    
+        # 
+        self.last_timestamp = None    
     ##################
     ###  Publisher ###
     ##################
@@ -36,11 +37,15 @@ class Ros_mqtt_bridge():
         publish ros tf to mqtt topic
         '''
         try:
-            t = self.tfBuffer.lookup_transform( frame_id, child_id, rospy.Time() )
+            #t = self.tfBuffer.lookup_transform( frame_id, child_id, rospy.Time() )
+            t = self.tfBuffer.lookup_transform( frame_id, child_id, rospy.Time(0) )
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException) as e :
-            pass
+            print (e)
         else:
-            self.mqtt_obj.publish(mqtt_topic, json_message_converter.convert_ros_message_to_json(t) , qos = 0, retain = False) # non-blocking msg
+            if self.last_timestamp != t.header.stamp:
+                self.last_timestamp = t.header.stamp
+                print (json_message_converter.convert_ros_message_to_json(t))
+                self.mqtt_obj.publish(mqtt_topic, json_message_converter.convert_ros_message_to_json(t) , qos = 0, retain = False) # non-blocking msg
 
     def _ros_cb(self, data, topic_name):# This is Ros topic call back
         try:
