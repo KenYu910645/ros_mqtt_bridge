@@ -15,7 +15,7 @@ def main(args):
 
     r = rospy.Rate(10) #call at 50HZ # Need to be faster than tf hz 
     while (not rospy.is_shutdown()):
-        ros_mqtt_bridge.publish_tf(frame_id = "map", child_id = "base_link", mqtt_topic = "mqtt_base_link")
+        ros_mqtt_bridge.publish_tf(frame_id = "car1/map", child_id = "car1/base_link", mqtt_topic = "mqtt_base_link")
         r.sleep()
 
 if __name__ == '__main__':
