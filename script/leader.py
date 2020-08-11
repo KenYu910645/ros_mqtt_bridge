@@ -12,7 +12,7 @@ def main(args):
     rospy.init_node('ros_mqtt_bridge_leader', anonymous=False)
     # init ros_mqtt_bridge
     ros_mqtt_bridge = Ros_mqtt_bridge(client_id="mqtt_leader", broker_ip="10.0.0.1", port=1883, keepalive=10, clean_session=True)
-    ros_mqtt_bridge.init_publisher("/car1/naive_cmd", "mqtt_topic", "geometry_msgs/Twist")
+    ros_mqtt_bridge.init_publisher("/car1/rap_cmd", "mqtt_topic", "geometry_msgs/Twist")
     ros_mqtt_bridge.init_subscriber("/car2/zed2/zed_node/odom", "mqtt_odom", "nav_msgs/Odometry")
     r = rospy.Rate(10) #call at 50HZ # Need to be faster than tf hz 
     while (not rospy.is_shutdown()):
