@@ -17,6 +17,9 @@ def main(args):
     # ros_mqtt_bridge.init_publisher("/car2/zed2/zed_node/odom", "mqtt_odom", "nav_msgs/Odometry")
     r = rospy.Rate(10) #call at 10HZ
     while (not rospy.is_shutdown()):
+        ros_mqtt_bridge.publish_tf(frame_id = "car2/map", child_id = "car2/base_link", mqtt_topic = "mqtt_tf_1")
+        ros_mqtt_bridge.publish_tf(frame_id = "car2/map", child_id = "car2/center_big_car", mqtt_topic = "mqtt_tf_2")
+        
         r.sleep()
 
 if __name__ == '__main__':
