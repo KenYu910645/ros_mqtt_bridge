@@ -11,9 +11,10 @@ def main(args):
     # init ros_mqtt_bridge
     ros_mqtt_bridge = Ros_mqtt_bridge(client_id="mqtt_follower", broker_ip="10.0.0.1", port=1883, keepalive=10, clean_session=True)
     # ros_mqtt_bridge init publisher
-    # ros_mqtt_bridge.init_publisher(ros_topic = "ros_cmd_master", mqtt_topic = "mqtt_cmd", data_type = "geometry_msgs/Twist")
-    ros_mqtt_bridge.init_subscriber("/car2/rap_cmd", "mqtt_topic", "geometry_msgs/Twist")   
-    ros_mqtt_bridge.init_publisher("/car2/zed2/zed_node/odom", "mqtt_odom", "nav_msgs/Odometry") 
+    
+    ros_mqtt_bridge.init_subscriber("/car2/rap_cmd", "mqtt_topic", "geometry_msgs/Twist")
+    ros_mqtt_bridge.init_subscriber("/car2/cmd_vel", "p2p_cmd", "geometry_msgs/Twist")
+    # ros_mqtt_bridge.init_publisher("/car2/zed2/zed_node/odom", "mqtt_odom", "nav_msgs/Odometry")
     r = rospy.Rate(10) #call at 10HZ
     while (not rospy.is_shutdown()):
         r.sleep()
