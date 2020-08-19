@@ -21,7 +21,7 @@ def main(args):
     ros_mqtt_bridge.init_tf_subscriber(frame_id = ROBOT_NAME+"/raw/odom",
                                        child_id = ROBOT_NAME+"/raw/base_link",
                                        mqtt_topic="mqtt_tf_odom2base_link")
-    r = rospy.Rate(30) #call at 50HZ # Need to be faster than tf hz 
+    r = rospy.Rate(10) #call at 50HZ # Need to be faster than tf hz 
     while (not rospy.is_shutdown()):
         r.sleep()
 

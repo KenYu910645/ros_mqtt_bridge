@@ -15,7 +15,7 @@ def main(args):
     # init ros_mqtt_bridge
     ros_mqtt_bridge = Ros_mqtt_bridge(client_id=ROBOT_NAME+"/nano", broker_ip="192.168.1.1", port=1883,
                                       keepalive=10, clean_session=True)
-    r = rospy.Rate(30) #call at 50HZ # Need to be faster than tf hz 
+    r = rospy.Rate(10) #call at 50HZ # Need to be faster than tf hz 
     while (not rospy.is_shutdown()):
         ros_mqtt_bridge.publish_tf(frame_id = ROBOT_NAME+"/map", 
                                    child_id = ROBOT_NAME+"/odom",
